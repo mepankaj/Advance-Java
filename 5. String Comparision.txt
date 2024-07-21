@@ -1,0 +1,60 @@
+public class StringManipulationDemo {
+    public static void main(String[] args) {
+        // Character Extraction
+        String str = "Hello, Acharya!";
+        System.out.println("Original string: " + str);
+
+        // Extracting a single character at index 4
+        char charAtIndex4 = str.charAt(4);
+        System.out.println("Character at index 4: " + charAtIndex4);
+
+        // Extracting a substring from index 7 to 12
+        String substring = str.substring(7, 12);
+        System.out.println("Substring from index 7 to 12: " + substring);
+
+        // String Comparison
+        String str1 = "Acharya";
+        String str2 = "acharya";
+        System.out.println("String comparison:");
+        System.out.println("str1.equals(str2): " + str1.equals(str2)); // Case-sensitive comparison
+        System.out.println("str1.equalsIgnoreCase(str2): " + str1.equalsIgnoreCase(str2)); // Case-insensitive comparison
+
+        // String Search
+        String text = "Information Science and Engineering";
+        String wordToFind = "Science";
+        boolean containsWord = text.contains(wordToFind);
+        System.out.println("Does the text contain the word \"Science\"? " + containsWord);
+
+        // String Modification
+        String original = "   Trim String    ";
+        System.out.println("Original string with leading and trailing spaces: \"" + original + "\"");
+        String trimmed = original.trim(); // Remove leading and trailing spaces
+        System.out.println("Trimmed string: \"" + trimmed + "\"");
+
+        String replaceExample = "I like Python, Python is fun!";
+        String replaced = replaceExample.replace("Python", "Java"); // Replace all occurrences of "Java" with "Python"
+        System.out.println("String after replacement: " + replaced);
+
+        String uppercase = str.toUpperCase(); // Convert to uppercase
+        System.out.println("Uppercase string: " + uppercase);
+
+        String lowercase = str.toLowerCase(); // Convert to lowercase
+        System.out.println("Lowercase string: " + lowercase);
+    }
+}
+
+
+
+O/P:
+Original string: Hello, Acharya!
+Character at index 4: o
+Substring from index 7 to 12: Achar
+String comparison:
+str1.equals(str2): false
+str1.equalsIgnoreCase(str2): true
+Does the text contain the word "Science"? true
+Original string with leading and trailing spaces: "   Modify String    "
+Trimmed string: "Modify String"
+String after replacement: I like Java, Java is fun!
+Uppercase string: HELLO, ACHARYA!
+Lowercase string: hello, acharya!

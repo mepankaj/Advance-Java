@@ -1,0 +1,51 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ButtonEventHandlingDemo extends JFrame implements ActionListener {
+    JButton alphaButton, betaButton;
+
+    public ButtonEventHandlingDemo() {
+        setTitle("Button Event Handling Demo");
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Create buttons
+        alphaButton = new JButton("Alpha");
+        betaButton = new JButton("Beta");
+
+        // Set action command for buttons
+        alphaButton.setActionCommand("Alpha");
+        betaButton.setActionCommand("Beta");
+
+        // Add action listeners to buttons
+        alphaButton.addActionListener(this);
+        betaButton.addActionListener(this);
+
+        // Add buttons to the frame
+        setLayout(new FlowLayout());
+        add(alphaButton);
+        add(betaButton);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+
+        // Display message based on which button is clicked
+        if (command.equals("Alpha")) {
+            JOptionPane.showMessageDialog(this, "Alpha pressed");
+        } else if (command.equals("Beta")) {
+            JOptionPane.showMessageDialog(this, "Beta pressed");
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ButtonEventHandlingDemo demo = new ButtonEventHandlingDemo();
+                demo.setVisible(true);
+            }
+        });
+    }
+}

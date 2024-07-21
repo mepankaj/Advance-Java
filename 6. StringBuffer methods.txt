@@ -1,0 +1,49 @@
+public class StringBufferDemo {
+    public static void main(String[] args) {
+        // Creating a StringBuffer object
+        StringBuffer stringBuffer = new StringBuffer("Hello");
+
+        // Append method
+        stringBuffer.append(" Acharya");
+        System.out.println("After appending: " + stringBuffer);
+
+        // Insert method
+        stringBuffer.insert(5, ", ");
+        System.out.println("After inserting at index 5: " + stringBuffer);
+
+        // Delete method
+        stringBuffer.delete(5, 7);
+        System.out.println("After deleting characters from index 5 to 7: " + stringBuffer);
+
+        // Reverse method
+        stringBuffer.reverse();
+        System.out.println("After reversing: " + stringBuffer);
+
+        // Replace method
+        stringBuffer.replace(6, 11, "Java");
+        System.out.println("After replacing from index 6 to 11 with 'Java': " + stringBuffer);
+
+        // Capacity and Length
+        System.out.println("Capacity of the buffer: " + stringBuffer.capacity());
+        System.out.println("Length of the buffer: " + stringBuffer.length());
+
+        // Ensure Capacity method
+        stringBuffer.ensureCapacity(30);
+        System.out.println("Capacity after ensuring: " + stringBuffer.capacity());
+
+        // Set Length method
+        stringBuffer.setLength(10);
+        System.out.println("After setting length to 10: " + stringBuffer);
+    }
+}
+
+O/P:
+After appending: Hello Acharya
+After inserting at index 5: Hello,  Acharya
+After deleting characters from index 5 to 7: Hello Acharya
+After reversing: ayrahcA olleH
+After replacing from index 6 to 11 with 'Java': ayrahcJavaeH
+Capacity of the buffer: 21
+Length of the buffer: 12
+Capacity after ensuring: 44
+After setting length to 10: ayrahcJava

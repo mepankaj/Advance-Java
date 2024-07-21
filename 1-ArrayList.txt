@@ -1,0 +1,52 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class ArrayListDemo {
+    public static void main(String[] args) {
+        // Creating an ArrayList
+        ArrayList<Integer> numbers = new ArrayList<>();
+
+        // Adding elements to the ArrayList
+        numbers.add(5);
+        numbers.add(2);
+        numbers.add(7);
+        numbers.add(3);
+        numbers.add(1);
+
+        // Displaying the ArrayList before sorting
+        System.out.println("ArrayList before sorting: " + numbers);
+
+        // Sorting the elements of the ArrayList
+        Collections.sort(numbers);
+
+        // Displaying the ArrayList after sorting
+        System.out.println("ArrayList after sorting: " + numbers);
+
+        // Removing an element from the ArrayList
+        numbers.remove(2); // Removing the element at index 2
+
+        // Displaying the ArrayList after removing an element
+        System.out.println("ArrayList after removing an element: " + numbers);
+
+        // Illustrating the use of toArray() method
+        Integer[] numbersArray = numbers.toArray(new Integer[0]);
+
+        // Displaying the array obtained from toArray() method
+        System.out.println("Array obtained from toArray() method:");
+        for (Integer num : numbersArray) {
+            System.out.println(num);
+        }
+    }
+}
+
+
+O/P:
+
+ArrayList before sorting: [5, 2, 7, 3, 1]
+ArrayList after sorting: [1, 2, 3, 5, 7]
+ArrayList after removing an element: [1, 2, 5, 7]
+Array obtained from toArray() method:
+1
+2
+5
+7

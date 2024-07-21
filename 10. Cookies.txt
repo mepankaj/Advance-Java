@@ -1,0 +1,27 @@
+import java.util.Scanner;
+import javax.servlet.http.Cookie;
+
+public class CookieExample {
+    public static void main(String[] args) {
+        // Create a Scanner object to read user input
+        Scanner scanner = new Scanner(System.in);
+
+        // Prompt the user to enter the value of the cookie
+        System.out.print("Enter the value for the cookie (EMPID): ");
+        String cookieValue = scanner.nextLine();
+
+        // Close the scanner
+        scanner.close();
+
+        // Create a cookie with name "EMPID" and the user-entered value
+        Cookie cookie = new Cookie("EMPID", cookieValue);
+
+        // Display cookie information
+        System.out.println("Cookie Name: " + cookie.getName());
+        System.out.println("Cookie Value: " + cookie.getValue());
+
+        // Optionally, you can set additional attributes for the cookie
+        // For example, you can set the cookie to expire after a certain time
+        // cookie.setMaxAge(3600); // Expires in 1 hour
+    }
+}

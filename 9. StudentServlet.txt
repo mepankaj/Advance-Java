@@ -1,0 +1,146 @@
+Step 1: Set up a Dynamic Web Project:
+
+    Open Eclipse.
+    Go to "File" > "New" > "Dynamic Web Project".
+    Enter a project name and click "Next".
+    Choose a Target Runtime (e.g., Apache Tomcat) and click "Next".
+    Configure the project settings as desired and click "Finish".
+
+2. Create a Servlet:
+
+    Right-click on the src folder in your Dynamic Web Project.
+    Go to "New" > "Servlet".
+    Enter a package name (or use the default) and specify a name for your servlet.
+    Click "Next".
+    Configure the servlet settings (such as URL mapping) and click "Next".
+    Optionally, you can select the checkboxes to generate doGet() and/or doPost() methods if you want to handle GET or POST requests.
+    Click "Finish".
+Add below code under the dopost():
+// Get student details from request parameters
+        String name = request.getParameter("name");
+        String usn = request.getParameter("usn");
+        int totalMarks = Integer.parseInt(request.getParameter("totalMarks"));
+
+        // Calculate percentage
+        double percentage = (totalMarks / 600.0) * 100;
+
+        // Set response content type
+        response.setContentType("text/html");
+
+        // Get PrintWriter object
+        PrintWriter out = response.getWriter();
+
+        // Generate HTML response
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Student Details</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h2>Student Details</h2>");
+        out.println("<p>Name: " + name + "</p>");
+        out.println("<p>USN: " + usn + "</p>");
+        out.println("<p>Total Marks: " + totalMarks + "</p>");
+        out.println("<p>Percentage: " + percentage + "%</p>");
+        out.println("</body>");
+        out.println("</html>");
+
+Code will look like:
+
+
+
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+/**
+ * Servlet implementation class StudentDetailsServlet
+ */
+public class StudentDetailsServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public StudentDetailsServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		// Get student details from request parameters
+        String name = request.getParameter("name");
+        String usn = request.getParameter("usn");
+        int totalMarks = Integer.parseInt(request.getParameter("totalMarks"));
+
+        // Calculate percentage
+        double percentage = (totalMarks / 600.0) * 100;
+
+        // Set response content type
+        response.setContentType("text/html");
+
+        // Get PrintWriter object
+        PrintWriter out = response.getWriter();
+
+        // Generate HTML response
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Student Details</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h2>Student Details</h2>");
+        out.println("<p>Name: " + name + "</p>");
+        out.println("<p>USN: " + usn + "</p>");
+        out.println("<p>Total Marks: " + totalMarks + "</p>");
+        out.println("<p>Percentage: " + percentage + "%</p>");
+        out.println("</body>");
+        out.println("</html>");
+		doGet(request, response);
+	}
+
+}
+
+3. Right click on webapp-> create new html file and write the below code:
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Details Form</title>
+</head>
+<body>
+    <h2>Enter Student Details</h2>
+    <form action="StudentDetailsServlet" method="post">
+        Name: <input type="text" name="name"><br>
+        USN: <input type="text" name="usn"><br>
+        Total Marks: <input type="number" name="totalMarks"><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+
+
+
+4. Run the Servlet:
+
+    To run the servlet, you need to deploy the Dynamic Web Project to a server (e.g., Apache Tomcat).
+    Right-click on your project.
+    Go to "Run As" > "Run on Server".
+    Choose your server (e.g., Apache Tomcat) and click "Next".
+    Click "Finish" to deploy and run your application.
+

@@ -1,0 +1,58 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+
+// User-defined class
+class Person {
+    private String name;
+    private int age;
+
+    // Constructor
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    // toString method to represent the object as a string
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+}
+
+public class CollectionOfCustomClass {
+    public static void main(String[] args) {
+        // Creating an ArrayList to store Person objects
+        ArrayList<Person> peopleList = new ArrayList<>();
+
+        // Adding Person objects to the ArrayList
+        peopleList.add(new Person("PK", 28));
+        peopleList.add(new Person("SK", 30));
+        peopleList.add(new Person("YK", 35));
+
+        // Displaying the elements of the ArrayList using Iterator
+        System.out.println("People List:");
+        Iterator<Person> iterator = peopleList.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+    }
+}
+
+
+O/P:
+People List:
+Person{name='PK', age=28}
+Person{name='SK', age=30}
+Person{name='YK', age=35}

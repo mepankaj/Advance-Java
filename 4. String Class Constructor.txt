@@ -1,0 +1,46 @@
+public class StringConstructorsDemo {
+    public static void main(String[] args) {
+        // Constructor 1: Creating a string using a string literal
+        String strLiteral = "Hey, Acharya!";
+        System.out.println("String created using a string literal: " + strLiteral);
+
+        // Constructor 2: Creating a string from a character array
+        char[] charArray = {'A', 'c', 'h', 'a', 'r', 'y', 'a'};
+        String strFromArray = new String(charArray);
+        System.out.println("String created from a character array: " + strFromArray);
+
+        // Constructor 3: Creating a string from a subset of a character array
+        String strFromArraySubset = new String(charArray, 0, 3); // Start from index 0 and take 3 characters
+        System.out.println("String created from a subset of a character array: " + strFromArraySubset);
+
+        // Constructor 4: Creating a string from another string
+        String originalStr = "Information Science and Engineering";
+        String copiedStr = new String(originalStr);
+        System.out.println("String created from another string: " + copiedStr);
+
+        // Constructor 5: Creating a string using StringBuilder
+        StringBuilder stringBuilder = new StringBuilder("Acharya");
+        String strFromBuilder = new String(stringBuilder);
+        System.out.println("String created using StringBuilder: " + strFromBuilder);
+
+        // Constructor 6: Creating a string from byte array using specific charset
+        byte[] byteArray = {65, 99, 104, 97, 114, 121, 97}; // ASCII values for "Acharya"
+        String strFromByteArray = new String(byteArray);
+        System.out.println("String created from byte array: " + strFromByteArray);
+
+        // Constructor 7: Creating a string from byte array using specific charset
+        byte[] byteArrayUTF8 = {65, 99, 104, 97, 114, 121, 97}; // ASCII values for "Acharya"
+        String strFromByteArrayUTF8 = new String(byteArrayUTF8, java.nio.charset.StandardCharsets.UTF_8);
+        System.out.println("String created from byte array with UTF-8 charset: " + strFromByteArrayUTF8);
+    }
+}
+
+
+O/P:
+String created using a string literal: Hey, Acharya!
+String created from a character array: Acharya
+String created from a subset of a character array: Ach
+String created from another string: Information Science and Engineering
+String created using StringBuilder: Acharya
+String created from byte array: Acharya
+String created from byte array with UTF-8 charset: Acharya

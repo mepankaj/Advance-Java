@@ -1,0 +1,157 @@
+Step 1: Set Up MySQL Database
+
+    Make sure you have MySQL installed on your machine.
+    Create a database named student_database using a MySQL client or command line interface.
+    
+CREATE DATABASE student_database;
+
+
+    Create a table named Student with the specified columns (id, first_name, last_name, age, department) as described in the previous response.
+CREATE TABLE Student (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    age INT,
+    department VARCHAR(50)
+);
+
+Step 2: Set Up Eclipse Project
+
+    Open Eclipse IDE.
+    Create a new Java project: Go to "File" > "New" > "Java Project". Enter a project name and click "Finish".
+Step 3: Add Jar file
+    Add MySQL JDBC driver jar file to the project. 
+download link : https://jar-download.com/artifacts/mysql/mysql-connector-java/8.0.20/source-code
+
+    Once the JAR file is downloaded, open Eclipse.
+    Right-click on your Java project in the Package Explorer.
+    Select "Build Path" > "Configure Build Path".
+    In the "Libraries" tab, click on the "Add External JARs" button.
+    Navigate to the location where you downloaded the MySQL JDBC driver JAR file, select it, and click "Open".
+    Click "Apply and Close" to save the changes.
+
+
+Step 3: Write Java Program
+
+import java.sql.*;
+
+public class StudentDatabaseExample {
+
+    // JDBC URL, username, and password of MySQL server
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/student_database";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "root";
+
+    public static void main(String[] args) {
+        try {
+            // Step 1: Establishing a connection to the database
+            try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+                System.out.println("Connected to the database.");
+
+                // Step 2: Inserting data into Student table
+                insertStudent(connection, "Pankaj", "Kumar", 25, "Information Science and Engineering");
+
+                // Step 3: Updating data in Student table
+                updateStudent(connection, 1, "Kumar", "Pankaj", 26, "Computer Science and Engineering");
+
+                // Step 4: Deleting data from Student table
+                deleteStudent(connection, 1);
+
+                // Step 5: Searching data in Student table
+                searchStudent(connection, "Pankaj");
+
+                // Step 6: Displaying all records in Student table
+                displayAllStudents(connection);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        }
+    }
+
+    // Method to insert data into Student table
+    private static void insertStudent(Connection connection, String firstName, String lastName, int age, String department) throws SQLException {
+        String insertQuery = "INSERT INTO Student (first_name, last_name, age, department) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            preparedStatement.setString(1, firstName);
+            preparedStatement.setString(2, lastName);
+            preparedStatement.setInt(3, age);
+            preparedStatement.setString(4, department);
+            int rowsInserted = preparedStatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("A new student record was inserted successfully!");
+            }
+        }
+    }
+
+    // Method to update data in Student table
+    private static void updateStudent(Connection connection, int studentId, String firstName, String lastName, int age, String department) throws SQLException {
+        String updateQuery = "UPDATE Student SET first_name=?, last_name=?, age=?, department=? WHERE id=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+            preparedStatement.setString(1, firstName);
+            preparedStatement.setString(2, lastName);
+            preparedStatement.setInt(3, age);
+            preparedStatement.setString(4, department);
+            preparedStatement.setInt(5, studentId);
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Student record with ID " + studentId + " was updated successfully!");
+            }
+        }
+    }
+
+    // Method to delete data from Student table
+    private static void deleteStudent(Connection connection, int studentId) throws SQLException {
+        String deleteQuery = "DELETE FROM Student WHERE id=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
+            preparedStatement.setInt(1, studentId);
+            int rowsDeleted = preparedStatement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Student record with ID " + studentId + " was deleted successfully!");
+            }
+        }
+    }
+
+    // Method to search for data in Student table
+    private static void searchStudent(Connection connection, String firstName) throws SQLException {
+        String searchQuery = "SELECT * FROM Student WHERE first_name=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(searchQuery)) {
+            preparedStatement.setString(1, firstName);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    System.out.println("Student found:");
+                    System.out.println("ID: " + resultSet.getInt("id"));
+                    System.out.println("First Name: " + resultSet.getString("first_name"));
+                    System.out.println("Last Name: " + resultSet.getString("last_name"));
+                    System.out.println("Age: " + resultSet.getInt("age"));
+                    System.out.println("Department: " + resultSet.getString("department"));
+                } else {
+                    System.out.println("No student found with first name: " + firstName);
+                }
+            }
+        }
+    }
+
+    // Method to display all records in Student table
+    private static void displayAllStudents(Connection connection) throws SQLException {
+        String selectQuery = "SELECT * FROM Student";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(selectQuery)) {
+            while (resultSet.next()) {
+                System.out.println("ID: " + resultSet.getInt("id"));
+                System.out.println("First Name: " + resultSet.getString("first_name"));
+                System.out.println("Last Name: " + resultSet.getString("last_name"));
+                System.out.println("Age: " + resultSet.getInt("age"));
+                System.out.println("Department: " + resultSet.getString("department"));
+                System.out.println("----------------------");
+            }
+        }
+    }
+}
+
+
+Step 4: Execute Program in Eclipse
+
+    Right-click on the Java file (StudentDatabaseExample.java) in Eclipse.
+    Select "Run As" > "Java Application"

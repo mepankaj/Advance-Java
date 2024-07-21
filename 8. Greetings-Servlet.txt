@@ -1,0 +1,121 @@
+Step 1: Set up a Dynamic Web Project:
+
+    Open Eclipse.
+    Go to "File" > "New" > "Dynamic Web Project".
+    Enter a project name and click "Next".
+    Choose a Target Runtime (e.g., Apache Tomcat) and click "Next".
+    Configure the project settings as desired and click "Finish".
+
+2. Create a Servlet:
+
+    Right-click on the src folder in your Dynamic Web Project.
+    Go to "New" > "Servlet".
+    Enter a package name (or use the default) and specify a name for your servlet.
+    Click "Next".
+    Configure the servlet settings (such as URL mapping) and click "Next".
+    Optionally, you can select the checkboxes to generate doGet() and/or doPost() methods if you want to handle GET or POST requests.
+    Click "Finish".
+Add below code under the dopost()
+String username = request.getParameter("username");
+        
+        // Set response content type
+        response.setContentType("text/html");
+        
+        // Get PrintWriter object
+        java.io.PrintWriter out = response.getWriter();
+        
+        // Generate HTML response
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Greeting</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>Hello, " + username + "</h1>");
+        out.println("<p>How are you?</p>");
+        out.println("</body>");
+        out.println("</html>");
+Code will look like:
+
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+/**
+ * Servlet implementation class GreetingServlet
+ */
+public class GreetingServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public GreetingServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String username = request.getParameter("username");
+        
+        // Set response content type
+        response.setContentType("text/html");
+        
+        // Get PrintWriter object
+        java.io.PrintWriter out = response.getWriter();
+        
+        // Generate HTML response
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Greeting</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>Hello, " + username + "</h1>");
+        out.println("<p>How are you?</p>");
+        out.println("</body>");
+        out.println("</html>");
+		doGet(request, response);
+	}
+
+}
+
+3. Right click on webapp-> create new html file and write the below code:
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Greeting Form</title>
+</head>
+<body>
+    <form action="GreetingServlet" method="post">
+        Enter your name: <input type="text" name="username">
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+
+
+
+4. Run the Servlet:
+
+    To run the servlet, you need to deploy the Dynamic Web Project to a server (e.g., Apache Tomcat).
+    Right-click on your project.
+    Go to "Run As" > "Run on Server".
+    Choose your server (e.g., Apache Tomcat) and click "Next".
+    Click "Finish" to deploy and run your application.
+

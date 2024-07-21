@@ -1,0 +1,60 @@
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Random;
+
+class TensPlaceComparator implements Comparator<Integer> {
+    @Override
+    public int compare(Integer num1, Integer num2) {
+        // Extract tens place
+        int tensPlace1 = (num1 % 100) / 10;
+        int tensPlace2 = (num2 % 100) / 10;
+        
+        // Compare tens places
+        return Integer.compare(tensPlace1, tensPlace2);
+    }
+}
+
+public class NumberSorting {
+    public static void main(String[] args) {
+        int minRange = 10; // Minimum number in the range
+        int maxRange = 99; // Maximum number in the range
+        int count = 10; // Number of random numbers to generate
+        
+        // Create ArrayList to store random numbers
+        ArrayList<Integer> randomNumbers = new ArrayList<>();
+        
+        // Generate random numbers between minRange and maxRange that are multiples of 2 and 5
+        Random random = new Random();
+        for (int i = 0; i < count; i++) {
+            int randomNumber;
+            do {
+                randomNumber = random.nextInt((maxRange - minRange) + 1) + minRange;
+            } while (randomNumber % 2 != 0 || randomNumber % 5 != 0); // Ensure the number is a multiple of 2 and 5
+            randomNumbers.add(randomNumber);
+        }
+        
+        // Display unsorted numbers
+        System.out.println("Unsorted numbers:");
+        for (int num : randomNumbers) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+        
+        // Sort numbers according to tens place using Comparator
+        randomNumbers.sort(new TensPlaceComparator());
+        
+        // Display sorted numbers
+        System.out.println("Sorted numbers according to tens place:");
+        for (int num : randomNumbers) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+    }
+}
+
+
+o/p:
+Unsorted numbers:
+50 80 40 80 10 80 80 50 90 70 
+Sorted numbers according to tens place:
+10 40 50 50 70 80 80 80 80 90 

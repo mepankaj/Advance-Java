@@ -1,0 +1,128 @@
+Login.jsp
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Login Page</title>
+</head>
+<body>
+<h2>Login</h2>
+<form action="validate.jsp" method="post">
+        <label for="user_id">User ID:</label>
+        <input type="text" id="user_id" name="user_id" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>
+
+-----------Validate.jsp------
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login Validation</title>
+</head>
+<body>
+    <%
+        // Retrieve user_id and password from the login form
+        String user_id = request.getParameter("user_id");
+        String password = request.getParameter("password");
+
+        // JDBC URL, username, and password of MySQL server
+        String jdbcURL = "jdbc:mysql://localhost:3306/users_database";
+        String dbUser = "root";
+        String dbPassword = "root";
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Establish connection to the database
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(jdbcURL, dbUser, dbPassword);
+
+            // Prepare SQL query to select user by user_id and password
+            String sql = "SELECT * FROM users WHERE user_id=? AND password=?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, user_id);
+            statement.setString(2, password);
+
+            // Execute the query
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                // If user exists, redirect to success page
+                response.sendRedirect("success.jsp?user_id=" + user_id);
+            } else {
+                // If user does not exist, redirect to error page
+                response.sendRedirect("error.jsp");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            // Handle database connection errors
+            e.printStackTrace();
+            out.println("Error connecting to the database.");
+        } finally {
+            // Close resources
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    %>
+</body>
+</html>
+
+
+-----------Success.jsp------
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login Successful</title>
+</head>
+<body>
+    <h2>Login Successful</h2>
+    <p>Welcome, <%= request.getParameter("user_id") %>!</p>
+</body>
+</html>
+
+
+-------error.jsp----
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login Error</title>
+</head>
+<body>
+    <h2>Login Error</h2>
+    <p>Invalid user ID or password. Please try again.</p>
+</body>
+</html>
